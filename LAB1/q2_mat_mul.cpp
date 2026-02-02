@@ -2,9 +2,12 @@
 #include <omp.h>
 using namespace std;
 
+double A[1000][1000], B[1000][1000], C[1000][1000];
+
 int main() {
-    const int N = 300;   
-    static double A[N][N], B[N][N], C[N][N];
+    int N = 1000;
+    double t1, t2, seq_time;
+
     for (int i = 0; i < N; i++)
         for (int j = 0; j < N; j++) {
             A[i][j] = 1.0;
@@ -12,27 +15,28 @@ int main() {
             C[i][j] = 0.0;
         }
 
-    double t1 = omp_get_wtime();
+    // Sequential
+    t1 = omp_get_wtime();
     for (int i = 0; i < N; i++)
         for (int j = 0; j < N; j++)
             for (int k = 0; k < N; k++)
                 C[i][j] += A[i][k] * B[k][j];
-    double t2 = omp_get_wtime();
+    t2 = omp_get_wtime();
 
-    double seq_time = t2 - t1;
-    cout << "Sequential Time = " << seq_time << " seconds\n\n";
+    seq_time = t2 - t1;
+    cout << "Sequential Time = " << seq_time << endl;
 
-    cout << "1D Parallel:\n";
-    for (int threads = 2; threads <= 8; threads++) {
+    // 1D Parallel
+    cout << "\n1D Parallel:\n";
+    for (int threads = 2; threads <= 10; threads++) {
+        omp_set_num_threads(threads);
 
         for (int i = 0; i < N; i++)
             for (int j = 0; j < N; j++)
                 C[i][j] = 0.0;
 
-        omp_set_num_threads(threads);
-
         t1 = omp_get_wtime();
-#pragma omp parallel for
+        #pragma omp parallel for private(j, k)
         for (int i = 0; i < N; i++)
             for (int j = 0; j < N; j++)
                 for (int k = 0; k < N; k++)
@@ -40,25 +44,22 @@ int main() {
         t2 = omp_get_wtime();
 
         double par_time = t2 - t1;
-        double speedup = seq_time / par_time;
-
-        cout << "Threads = " << threads
-             << "   Time = " << par_time
-             << "   Speedup = " << speedup << endl;
+        cout << "Threads=" << threads
+             << " Time=" << par_time
+             << " Speedup=" << seq_time / par_time << endl;
     }
 
-
+    // 2D Parallel
     cout << "\n2D Parallel:\n";
-    for (int threads = 2; threads <= 8; threads++) {
+    for (int threads = 2; threads <= 10; threads++) {
+        omp_set_num_threads(threads);
 
         for (int i = 0; i < N; i++)
             for (int j = 0; j < N; j++)
                 C[i][j] = 0.0;
 
-        omp_set_num_threads(threads);
-
         t1 = omp_get_wtime();
-#pragma omp parallel for collapse(2)
+        #pragma omp parallel for collapse(2) private(k)
         for (int i = 0; i < N; i++)
             for (int j = 0; j < N; j++)
                 for (int k = 0; k < N; k++)
@@ -66,11 +67,9 @@ int main() {
         t2 = omp_get_wtime();
 
         double par_time = t2 - t1;
-        double speedup = seq_time / par_time;
-
-        cout << "Threads = " << threads
-             << "   Time = " << par_time
-             << "   Speedup = " << speedup << endl;
+        cout << "Threads=" << threads
+             << " Time=" << par_time
+             << " Speedup=" << seq_time / par_time << endl;
     }
 
     return 0;
