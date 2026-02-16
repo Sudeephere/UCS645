@@ -1,0 +1,18 @@
+# Compiled binaries
+correlate
+*.exe
+*.out
+*.o
+
+# Profiling output
+gmon.out
+perf.data
+perf.data.old
+
+# Performance test output
+perf_output_*.txt
+
+# WSL-specific
+WSL2-Linux-Kernel/
+*.wslconfig
+.wsl/
