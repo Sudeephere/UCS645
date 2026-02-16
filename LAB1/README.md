@@ -1,13 +1,33 @@
-LAB 1 – Parallel Programming using OpenMP
-List of Experiments
+# Parallel Programming Lab (OpenMP)
 
-1.DAXPY Computation using Loop Parallelization
-(Performance testing + speedup comparison)
-2.Parallel Matrix Multiplication
-1D Thread Decomposition
-2D Thread Decomposition
-3.Estimation of π (Pi) using OpenMP Reduction
+This repository contains basic OpenMP programs written in **C++** for learning and practicing **shared memory parallel programming**.
 
-#Programming Language / Tools
-1.C++
-2.OpenMP Library (Shared Memory Parallelism)
+---
+
+## 📌 Lab Experiments (Lab 1)
+
+1. **DAXPY Loop (Speedup Analysis)**
+   - Parallel loop execution
+   - Time comparison: Serial vs Parallel
+
+2. **Matrix Multiplication**
+   - 1D Threading approach
+   - 2D Threading approach
+
+3. **PI Calculation using Reduction**
+   - Uses OpenMP `reduction` clause for fast computation
+
+---
+
+## 🛠️ Requirements
+- C++ Compiler (GCC recommended)
+- OpenMP Support  
+  *(Works on Linux / Windows (MinGW) / Mac with GCC)*
+
+---
+
+## ⚙️ Compilation & Run
+
+### Compile:
+```bash
+g++ filename.cpp -o output -fopenmp
