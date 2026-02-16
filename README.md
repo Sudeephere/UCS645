@@ -1,33 +1,41 @@
-# Parallel Programming Lab (OpenMP)
+# 💻 Parallel and Distributed Computing (UCS645)
+**Thapar Institute of Engineering and Technology**
 
-This repository contains basic OpenMP programs written in **C++** for learning and practicing **shared memory parallel programming**.
-
----
-
-## 📌 Lab Experiments (Lab 1)
-
-1. **DAXPY Loop (Speedup Analysis)**
-   - Parallel loop execution
-   - Time comparison: Serial vs Parallel
-
-2. **Matrix Multiplication**
-   - 1D Threading approach
-   - 2D Threading approach
-
-3. **PI Calculation using Reduction**
-   - Uses OpenMP `reduction` clause for fast computation
+This repository contains my laboratory work and performance evaluations for the UCS645 course, focusing on **Shared Memory Parallelism** using **OpenMP**.
 
 ---
 
-## 🛠️ Requirements
-- C++ Compiler (GCC recommended)
-- OpenMP Support  
-  *(Works on Linux / Windows (MinGW) / Mac with GCC)*
+## 📂 Repository Structure
+
+### 🧪 [Lab 1: Fundamentals of OpenMP](./Lab1/)
+Basic implementations to understand thread management and data sharing.
+* **DAXPY Loop:** Measuring speedup in vector operations.
+* **Matrix Multiplication:** Comparing 1D vs. 2D threading strategies.
+* **PI Calculation:** Implementing the `reduction` clause for numerical integration.
+
+### 🚀 [Lab 2: Performance Evaluation](./Lab2/)
+An in-depth analysis of scalability, speedup, and efficiency across multiple threads.
+* **Molecular Dynamics:** Pairwise Lennard-Jones force calculations.
+* **Smith–Waterman Algorithm:** Analyzing wavefront parallelization and synchronization bottlenecks.
+* **2D Heat Diffusion:** Observing superlinear speedup through cache optimization.
 
 ---
 
-## ⚙️ Compilation & Run
+## 📊 High-Level Performance Summary (Lab 2)
+![Performance Graph](Lab2/performance_graph.png)
 
-### Compile:
-```bash
-g++ filename.cpp -o output -fopenmp
+| Application | Max Speedup | Best Thread Count | Scaling Type |
+| :--- | :--- | :--- | :--- |
+| Molecular Dynamics | 3.84x | 4 Threads | Near-Ideal |
+| Smith-Waterman | 2.51x | 4 Threads | Low (Sync-bound) |
+| Heat Diffusion | 4.13x | 4 Threads | Superlinear |
+
+---
+
+## 🛠️ Requirements & Setup
+- **Compiler:** GCC with `-fopenmp` support.
+- **Environment:** Tested on Linux/Ubuntu.
+- **Execution:**
+  ```bash
+  g++ filename.cpp -o output -fopenmp
+  ./output
