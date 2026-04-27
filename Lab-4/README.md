@@ -2,7 +2,7 @@
 
 | Field | Details |
 |---|---|
-| **Name** | Aryaman Gudwani |
+| **Name** | Sudeep |
 | **Course** | UCS645 – Parallel and Distributed Computing |
 | **Lab** | 4 |
 | **Environment** | OpenMPI 4.1.6 (compiled from source), Ubuntu 24.04, GCC 13.3.0 |
