@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptive Parallel Sorting System</title>
+    <meta name="description" content="Interactive dashboard to benchmark Adaptive Parallel Sorting against Serial and Naive Parallel sorting.">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="container">
+        <header class="glass-panel text-center">
+            <h1>Adaptive Parallel Sorting</h1>
+            <p class="subtitle">Dynamic OpenMP Algorithm Selection in C++</p>
+        </header>
+
+        <main>
+            <section class="controls glass-panel">
+                <form id="benchmark-form">
+                    <div class="form-group">
+                        <label for="array-size">Array Size (elements):</label>
+                        <input type="number" id="array-size" name="size" value="1000000" min="1000" max="100000000" required>
+                    </div>
+                    <button type="submit" id="run-btn">
+                        <span class="btn-text">Run Benchmark</span>
+                        <div class="loader hidden" id="btn-loader"></div>
+                    </button>
+                </form>
+            </section>
+
+            <div class="results-grid hidden" id="results-section">
+                <!-- Metrics Cards -->
+                <div class="metrics-column">
+                    <div class="metric-card glass-panel" style="border-top: 4px solid #ef4444;">
+                        <h3>Serial Sort</h3>
+                        <p class="time" id="serial-time">0 ms</p>
+                    </div>
+                    
+                    <div class="metric-card glass-panel" style="border-top: 4px solid #f59e0b;">
+                        <h3>Naive Parallel Sort</h3>
+                        <p class="time" id="parallel-time">0 ms</p>
+                    </div>
+
+                    <div class="metric-card glass-panel highlight" style="border-top: 4px solid #10b981;">
+                        <h3>Adaptive Sort</h3>
+                        <p class="time" id="adaptive-time">0 ms</p>
+                    </div>
+
+                    <div class="metric-card glass-panel stats-card">
+                        <h3>Speedup vs Serial</h3>
+                        <p class="time speedup" id="speedup-val">1.0x</p>
+                        <p class="thread-info" id="thread-info">Threads: -</p>
+                    </div>
+                </div>
+
+                <!-- Chart Column -->
+                <div class="chart-column glass-panel">
+                    <h2>Execution Time Comparison</h2>
+                    <div class="chart-container">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="error-msg" class="error-panel hidden glass-panel"></div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
